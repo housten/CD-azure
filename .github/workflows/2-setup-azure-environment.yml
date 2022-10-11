@@ -81,7 +81,7 @@ jobs:
         run: ./.github/script/create-workflow-pr.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_BRANCH: azure-configuration
+          PR_BRANCH: ${{ github.repository }}
           PR_TITLE: 'Added spinup-destroy.yml workflow'
           WORKFLOW_FILE: spinup-destroy.yml
 
