@@ -83,6 +83,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_BRANCH: azure-configuration
           PR_TITLE: 'Added spinup-destroy.yml workflow'
+          WORKFLOW_FILE: spinup-destroy.yml
 
       # Update README to close <details id=2>
       # and open <details id=3>
