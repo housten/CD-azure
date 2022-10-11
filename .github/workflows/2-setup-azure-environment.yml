@@ -13,11 +13,7 @@ on:
     paths:
       - .github/workflows/deploy-staging.yml
 
-permissions:
-  # Need `contents: read` to checkout the repository
-  # Need `contents: write` to update the step metadata
-  contents: write
-  pull-requests: write
+permissions: write-all
 
 jobs:
   # The purpose of this job is to output the current step number 
@@ -52,9 +48,10 @@ jobs:
     steps:
       # We'll need to check out the repository so that we can edit the README
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Let's get all the branches
+          token: ${{ secrets.GH_WORKFLOWWRITE_PAT }}
 
       # Verify the learner configured Build-Docker-Image job
       - name: Verify Build-Docker-Image job
@@ -77,13 +74,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Create pull request from azure-configuration branch to set up next step
-      - name: Create azure-configuration pull request 
-        run: ./.github/script/create-workflow-pr.sh
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_BRANCH: azure-configuration
-          PR_TITLE: 'Added spinup-destroy.yml workflow'
+#      - name: Create azure-configuration pull request 
+#        run: ./.github/script/create-workflow-pr.sh
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GH_WORKFLOWWRITE_PAT }}
+#          PR_BRANCH: ${{ github.ref.name }}
+#          PR_TITLE: 'Added spinup-destroy.yml workflow'
+#          WORKFLOW_FILE: spinup-destroy.yml
 
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Update README to close <details id=2>
       # and open <details id=3>
       # and set STEP to '3'
