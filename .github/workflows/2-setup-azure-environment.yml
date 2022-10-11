@@ -18,6 +18,7 @@ permissions:
   # Need `contents: write` to update the step metadata
   contents: write
   pull-requests: write
+  workflows: write
 
 jobs:
   # The purpose of this job is to output the current step number 
