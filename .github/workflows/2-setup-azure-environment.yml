@@ -13,12 +13,7 @@ on:
     paths:
       - .github/workflows/deploy-staging.yml
 
-permissions:
-  # Need `contents: read` to checkout the repository
-  # Need `contents: write` to update the step metadata
-  contents: write
-  pull-requests: write
-  actions: write
+permissions: write-all
 
 jobs:
   # The purpose of this job is to output the current step number 
