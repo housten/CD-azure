@@ -14,6 +14,9 @@ then
     git pull origin main --no-rebase -X theirs --no-edit
     git push origin $PR_BRANCH
 fi
+echo "Where are we:"
+pwd
+ls
 
 echo "Make sure we are on the main branch"
 git checkout main
