@@ -17,6 +17,7 @@ fi
 echo "Where are we:"
 pwd
 ls
+git remote -v
 
 echo "Copy example workflow into .github/workflows/"
 cp .github/example-workflows/$WORKFLOW_FILE .github/workflows/
