@@ -37,6 +37,21 @@ Create two deployment workflows using GitHub Actions and Microsoft Azure.
 3. After your new repository is created, wait about 20 seconds, then refresh the page. Follow the step-by-step instructions in the new repository's README.
 
 endstep0-->
+<details id=0>
+<summary><h2>Tips and Tricks</h2></summary>
+I had some issues while doing this lab. The points below are my learnings.
+- Don't name your repository with capital letters. It can cause the error below when Azure tries to retrieve the container package.
+`DockerApiException: Docker API responded with status code=BadRequest, response={"message":"invalid reference format: repository name must be lowercase"}`
+- You will need to create a github PAT with workflow write permissions for step 2 to work. PATS are created by selecting settings from your user icon in the top right corner when you are in github and then select Developer Settings at the bottom of the left hand menu. I added mine to the repository's secrets and then updated the step 2 yml file to use the PAT secret in the checkout step.
+- It can take a few minutes for the updates in Azure to complete. This can mean that:
+  - The deploy fails saying that your app service isn't there - even though it is visible in the Azure gui. Just rerun the failing workflow.
+  - The app appears to be failing even after a couple of refreshes of the app service page. Wait a few more minutes or check the Deployment Center logs to see if the app has been started (see below)
+- Monitor the messages Azure generates during installation of the App Service by navigating to the App Service in the Azure gui and selecting Deployment Center in the left hand menu, then selecting the Logs tab. When the deployment has completed successfully the message below appears:
+`Container <username>-ttt-app_0_f1542a56 for site <username>-ttt-app initialized successfully and is ready to serve requests.`  .  
+
+There were some other issues because it appears that this specific skill started to get an update but it wasn't quite finished. I just worked my way through each of the errors and dug around in the discussions and skills repository until I got past the problem I had building in Step 2. My [cd-azure repository](https://github.com/housten/cd-azure) contains my working version of the skills files. I think after "Check step 2, Set up the Azure environment" failed on the pull request syntax because the --title parameter was causing an error I commented out the step that failed in the step 2 yaml file and then reran it. I may have had to create the PR manually, I didn't feel like putting more time into figuring out why --title wasn't working. I did learn a lot from fixing all the problems but the --title was something I couldn't be bothered to investigate. :)
+
+</details>
 
 <details id=1>
 <summary><h2>Step 1: Trigger a job based on labels</h2></summary>
